@@ -1,0 +1,7 @@
+from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+
+class MainWindow(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Основное окно')
+        self.resize(300, 200)
