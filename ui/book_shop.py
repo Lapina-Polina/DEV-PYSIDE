@@ -1,16 +1,6 @@
 import sys
-
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QVBoxLayout,
-    QPushButton,
-    QLabel,
-    QListWidget,
-    QButtonGroup,
-    QRadioButton,
-)
-
+from PySide6.QtWidgets import QApplication, QDialog, QVBoxLayout,\
+    QPushButton, QLabel, QListWidget, QButtonGroup, QRadioButton
 from PySide6.QtGui import QFont
 from PySide6.QtCore import Qt
 

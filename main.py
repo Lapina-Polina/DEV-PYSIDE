@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 
 # Импорты всех окон
 from ui.login import LoginWindow

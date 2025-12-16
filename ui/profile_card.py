@@ -1,7 +1,5 @@
-from PySide6.QtWidgets import (
-    QApplication, QDialog, QLabel, QLineEdit, QPushButton,
-    QVBoxLayout, QHBoxLayout, QMessageBox, QSizePolicy
-)
+from PySide6.QtWidgets import QApplication, QDialog, QLabel, \
+    QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QMessageBox, QSizePolicy
 import sys
 import re
 

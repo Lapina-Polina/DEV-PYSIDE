@@ -1,13 +1,5 @@
 import sys
-
-from PySide6.QtWidgets import (
-    QApplication,
-    QDialog,
-    QPushButton,
-    QFormLayout,
-    QLineEdit,
-    QMessageBox,
-)
+from PySide6.QtWidgets import QApplication, QDialog, QPushButton, QFormLayout, QLineEdit, QMessageBox
 
 
 class BLoginWindow(QDialog):
