@@ -1,9 +1,10 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
 
 # Импорт классов окон для лабораторных работ
 from widgets.lab1.main_window_lab1 import MainWindowLab1  # Лабораторная работа 1
 from widgets.lab2.main_window_lab2 import MainWindowLab2  # Лабораторная работа 2
+from widgets.lab3.main_window_lab3 import MainWindowLab3  # Лабораторная работа 3
 
 
 class Launcher(QWidget):
@@ -21,6 +22,7 @@ class Launcher(QWidget):
         buttons = [
             ("Лабораторная работа 1", MainWindowLab1),
             ("Лабораторная работа 2", MainWindowLab2),
+            ("Лабораторная работа 3", MainWindowLab3)
         ]
 
         # Создаем кнопки для каждой лабораторной работы

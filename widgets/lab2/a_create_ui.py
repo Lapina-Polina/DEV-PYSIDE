@@ -1,5 +1,7 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QLabel, \
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QLabel,
     QLineEdit, QVBoxLayout, QHBoxLayout, QPushButton
+)
 
 
 class Window(QWidget):

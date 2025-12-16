@@ -1,7 +1,10 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, \
-    QPushButton, QComboBox, QTextEdit, QPlainTextEdit, QSpinBox, QDoubleSpinBox, QTimeEdit, QDateTimeEdit
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QLineEdit, QVBoxLayout, QHBoxLayout,
+    QPushButton, QComboBox, QTextEdit, QPlainTextEdit,
+    QSpinBox, QDoubleSpinBox, QTimeEdit, QDateTimeEdit
+)
 
-from PyQt6.QtCore import QTime, QDateTime
+from PySide6.QtCore import QTime, QDateTime
 import random
 
 
@@ -116,35 +119,35 @@ class AddWindow(QWidget):
         self.pushButtonDateTimeEdit.clicked.connect(self.onPushButtonDateTimeEditClicked)
         self.pushButtonClearLog.clicked.connect(self.plainTextEditLog.clear)
 
-    # lineEdit button
+    # Slot for lineEdit button
     def onPushButtonLineEditClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.lineEdit.text())
 
-    # comboBox button
+    # Slot for comboBox button
     def onPushButtonComboBoxClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.comboBox.currentText())
 
-    # textEdit button
+    # Slot for textEdit button
     def onPushButtonTextEditClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.textEdit.toPlainText())
 
-    # plainTextEdit button
+    # Slot for plainTextEdit button
     def onPushButtonPlainTextEditClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.plainTextEdit.toPlainText())
 
-    # spinBox button
+    # Slot for spinBox button
     def onPushButtonSpinBoxClicked(self) -> None:
         self.plainTextEditLog.setPlainText(str(self.spinBox.value()))
 
-    # doubleSpinBox button
+    # Slot for doubleSpinBox button
     def onPushButtonDoubleSpinBoxClicked(self) -> None:
         self.plainTextEditLog.setPlainText(str(self.doubleSpinBox.value()))
 
-    # timeEdit button
+    # Slot for timeEdit button
     def onPushButtonTimeEditClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.timeEdit.time().toString())
 
-    # dateTimeEdit button
+    # Slot for dateTimeEdit button
     def onPushButtonDateTimeEditClicked(self) -> None:
         self.plainTextEditLog.setPlainText(self.dateTimeEdit.dateTime().toString())
 
