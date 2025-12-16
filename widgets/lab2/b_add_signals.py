@@ -1,8 +1,12 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, \
-    QPushButton, QComboBox, QTextEdit, QPlainTextEdit, QSpinBox, QDoubleSpinBox, QTimeEdit, QDateTimeEdit
-
-from PyQt6.QtCore import QTime, QDateTime
+import sys
 import random
+
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QLineEdit, QVBoxLayout, QHBoxLayout,
+    QPushButton, QComboBox, QTextEdit, QPlainTextEdit,
+    QSpinBox, QDoubleSpinBox, QTimeEdit, QDateTimeEdit
+)
+from PySide6.QtCore import QTime, QDateTime
 
 
 class AddWindow(QWidget):
@@ -12,9 +16,7 @@ class AddWindow(QWidget):
         self.initUi()
 
     def initUi(self):
-        """
-        Инициализация интерфейса
-        """
+        """Инициализация интерфейса"""
 
         # comboBox -----------------------------------------------------------
         self.comboBox = QComboBox()
@@ -70,7 +72,9 @@ class AddWindow(QWidget):
 
         # timeEdit -----------------------------------------------------------
         self.timeEdit = QTimeEdit()
-        self.timeEdit.setTime(QTime.currentTime().addSecs(random.randint(-10000, 10000)))
+        self.timeEdit.setTime(
+            QTime.currentTime().addSecs(random.randint(-10000, 10000))
+        )
         self.pushButtonTimeEdit = QPushButton("Получить данные")
         layoutTimeEdit = QHBoxLayout()
         layoutTimeEdit.addWidget(self.timeEdit)
@@ -78,20 +82,22 @@ class AddWindow(QWidget):
 
         # dateTimeEdit -------------------------------------------------------
         self.dateTimeEdit = QDateTimeEdit()
-        self.dateTimeEdit.setDateTime(QDateTime.currentDateTime().addDays(random.randint(-10, 10)))
+        self.dateTimeEdit.setDateTime(
+            QDateTime.currentDateTime().addDays(random.randint(-10, 10))
+        )
         self.pushButtonDateTimeEdit = QPushButton("Получить данные")
         layoutDateTimeEdit = QHBoxLayout()
         layoutDateTimeEdit.addWidget(self.dateTimeEdit)
         layoutDateTimeEdit.addWidget(self.pushButtonDateTimeEdit)
 
-        # plainTextEditLog ---------------------------------------------------
+        # log ---------------------------------------------------------------
         self.plainTextEditLog = QPlainTextEdit()
         self.pushButtonClearLog = QPushButton("Очистить лог")
         layoutLog = QHBoxLayout()
         layoutLog.addWidget(self.plainTextEditLog)
         layoutLog.addWidget(self.pushButtonClearLog)
 
-        # main layout
+        # main layout -------------------------------------------------------
         layoutMain = QVBoxLayout()
         layoutMain.addLayout(layoutComboBox)
         layoutMain.addLayout(layoutLineEdit)
@@ -105,7 +111,7 @@ class AddWindow(QWidget):
 
         self.setLayout(layoutMain)
 
-        # Connect signals
+        # signals -----------------------------------------------------------
         self.pushButtonComboBox.clicked.connect(self.onPushButtonComboBoxClicked)
         self.pushButtonLineEdit.clicked.connect(self.onPushButtonLineEditClicked)
         self.pushButtonTextEdit.clicked.connect(self.onPushButtonTextEditClicked)
@@ -116,40 +122,35 @@ class AddWindow(QWidget):
         self.pushButtonDateTimeEdit.clicked.connect(self.onPushButtonDateTimeEditClicked)
         self.pushButtonClearLog.clicked.connect(self.plainTextEditLog.clear)
 
-    # lineEdit button
-    def onPushButtonLineEditClicked(self) -> None:
+    # handlers -------------------------------------------------------------
+
+    def onPushButtonLineEditClicked(self):
         self.plainTextEditLog.setPlainText(self.lineEdit.text())
 
-    # comboBox button
-    def onPushButtonComboBoxClicked(self) -> None:
+    def onPushButtonComboBoxClicked(self):
         self.plainTextEditLog.setPlainText(self.comboBox.currentText())
 
-    # textEdit button
-    def onPushButtonTextEditClicked(self) -> None:
+    def onPushButtonTextEditClicked(self):
         self.plainTextEditLog.setPlainText(self.textEdit.toPlainText())
 
-    # plainTextEdit button
-    def onPushButtonPlainTextEditClicked(self) -> None:
+    def onPushButtonPlainTextEditClicked(self):
         self.plainTextEditLog.setPlainText(self.plainTextEdit.toPlainText())
 
-    # spinBox button
-    def onPushButtonSpinBoxClicked(self) -> None:
+    def onPushButtonSpinBoxClicked(self):
         self.plainTextEditLog.setPlainText(str(self.spinBox.value()))
 
-    # doubleSpinBox button
-    def onPushButtonDoubleSpinBoxClicked(self) -> None:
+    def onPushButtonDoubleSpinBoxClicked(self):
         self.plainTextEditLog.setPlainText(str(self.doubleSpinBox.value()))
 
-    # timeEdit button
-    def onPushButtonTimeEditClicked(self) -> None:
+    def onPushButtonTimeEditClicked(self):
         self.plainTextEditLog.setPlainText(self.timeEdit.time().toString())
 
-    # dateTimeEdit button
-    def onPushButtonDateTimeEditClicked(self) -> None:
+    def onPushButtonDateTimeEditClicked(self):
         self.plainTextEditLog.setPlainText(self.dateTimeEdit.dateTime().toString())
 
+
 if __name__ == "__main__":
-    app = QApplication([])
+    app = QApplication(sys.argv)
     window = AddWindow()
     window.show()
-    app.exec()
+    sys.exit(app.exec())

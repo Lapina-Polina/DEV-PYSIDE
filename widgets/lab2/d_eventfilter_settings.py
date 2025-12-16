@@ -1,5 +1,8 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QDial, QSlider, QLCDNumber, QComboBox, QVBoxLayout
-from PyQt6.QtCore import Qt, QEvent, QSettings
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QDial, QSlider,
+    QLCDNumber, QComboBox, QVBoxLayout
+)
+from PySide6.QtCore import Qt, QEvent, QSettings
 
 
 class EventFilterSettings(QWidget):

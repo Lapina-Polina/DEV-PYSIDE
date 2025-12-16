@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QLineEdit, QFormLayout
+from PySide6.QtWidgets import QApplication, QWidget, QLineEdit, QFormLayout
 
 class ShipParametersUI(QWidget):
     def __init__(self):

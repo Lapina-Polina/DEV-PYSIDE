@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+from PySide6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 
 class MainWindow(QWidget):
     def __init__(self):

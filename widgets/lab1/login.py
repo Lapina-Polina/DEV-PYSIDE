@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
+from PySide6.QtWidgets import QApplication, QDialog, QMessageBox
 from ui_generated.login_ui import Ui_Dialog
 
 class LoginWindow(QDialog):

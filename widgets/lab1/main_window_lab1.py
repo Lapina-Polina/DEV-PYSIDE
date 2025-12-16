@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+
 from widgets.lab1.login import LoginWindow  # Окно для Логина
 from widgets.lab1.b_login import BLoginWindow  # Окно для Б-Логина
 from widgets.lab1.ship_parameters import ShipParametersUI  # Параметры корабля

@@ -1,131 +1,140 @@
-from PyQt6.QtWidgets import QApplication, QWidget
-from PyQt6.QtCore import QTimer
-from PyQt6 import uic
 import sys
 import time
+
+from PySide6.QtWidgets import QApplication, QWidget
+from PySide6.QtCore import QTimer, QFile
+from PySide6.QtUiTools import QUiLoader
+
 
 class SignalWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        # Загрузка UI из файла
-        uic.loadUi('ui/c_signals_events_form.ui', self)
+        # ---------- Load UI ----------
+        loader = QUiLoader()
+        ui_file = QFile("ui/c_signals_events_form.ui")
 
-        # Инициализация переменных
+        if not ui_file.open(QFile.ReadOnly):
+            raise RuntimeError("Не удалось открыть ui/c_signals_events_form.ui")
+
+        self.ui = loader.load(ui_file, self)
+        ui_file.close()
+
+        if not self.ui:
+            raise RuntimeError("Ошибка загрузки UI")
+
+        # ---------- Init state ----------
         self.last_pos = self.pos()
         self.last_size = self.size()
 
-        # Подключаем кнопки
-        self.pushButtonLT.clicked.connect(self.move_to_top_left)
-        self.pushButtonRT.clicked.connect(self.move_to_top_right)
-        self.pushButtonCenter.clicked.connect(self.center_window)
-        self.pushButtonLB.clicked.connect(self.move_to_bottom_left)
-        self.pushButtonRB.clicked.connect(self.move_to_bottom_right)
-        self.pushButtonMoveCoords.clicked.connect(self.move_to_coordinates)
-        self.pushButtonGetData.clicked.connect(self.get_window_data)
+        # ---------- Connect buttons ----------
+        self.ui.pushButtonLT.clicked.connect(self.move_to_top_left)
+        self.ui.pushButtonRT.clicked.connect(self.move_to_top_right)
+        self.ui.pushButtonCenter.clicked.connect(self.center_window)
+        self.ui.pushButtonLB.clicked.connect(self.move_to_bottom_left)
+        self.ui.pushButtonRB.clicked.connect(self.move_to_bottom_right)
+        self.ui.pushButtonMoveCoords.clicked.connect(self.move_to_coordinates)
+        self.ui.pushButtonGetData.clicked.connect(self.get_window_data)
 
-        # Таймер для обновления состояния окна
+        # ---------- Timer ----------
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_status)
         self.timer.start(1000)
 
+    # Window movement
     def move_to_top_left(self):
-        """ Переместить окно в верхний левый угол """
-        screen_geometry = self.screen().availableGeometry()
         self.move(0, 0)
         self.update_status()
 
     def move_to_top_right(self):
-        """ Переместить окно в верхний правый угол """
-        screen_geometry = self.screen().availableGeometry()
-        self.move(screen_geometry.width() - self.width(), 0)
+        geo = self.screen().availableGeometry()
+        self.move(geo.width() - self.width(), 0)
         self.update_status()
 
     def move_to_bottom_left(self):
-        """ Переместить окно в нижний левый угол """
-        screen_geometry = self.screen().availableGeometry()
-        self.move(0, screen_geometry.height() - self.height())
+        geo = self.screen().availableGeometry()
+        self.move(0, geo.height() - self.height())
         self.update_status()
 
     def move_to_bottom_right(self):
-        """ Переместить окно в нижний правый угол """
-        screen_geometry = self.screen().availableGeometry()
-        self.move(screen_geometry.width() - self.width(), screen_geometry.height() - self.height())
+        geo = self.screen().availableGeometry()
+        self.move(geo.width() - self.width(), geo.height() - self.height())
         self.update_status()
 
     def center_window(self):
-        """ Центрировать окно на экране """
-        screen_geometry = self.screen().availableGeometry()
-        self.move((screen_geometry.width() - self.width()) // 2, (screen_geometry.height() - self.height()) // 2)
+        geo = self.screen().availableGeometry()
+        self.move(
+            (geo.width() - self.width()) // 2,
+            (geo.height() - self.height()) // 2
+        )
         self.update_status()
 
     def move_to_coordinates(self):
-        """ Переместить окно по заданным координатам """
-        x = self.spinBoxX.value()
-        y = self.spinBoxY.value()
+        x = self.ui.spinBoxX.value()
+        y = self.ui.spinBoxY.value()
         self.move(x, y)
         self.update_status()
 
+    # Status
     def update_status(self):
-        """ Обновляем состояние окна в поле логов """
         screen = self.screen()
-        screen_geometry = screen.availableGeometry()
-        window_position = self.pos()
-        window_size = self.size()
-        window_min_size = self.minimumSize()
-        window_center = self.rect().center()
+        geo = screen.availableGeometry()
 
-        # Получаем текущее состояние окна
-        state = self.windowStateToStr()
+        pos = self.pos()
+        size = self.size()
+        min_size = self.minimumSize()
+        center = self.rect().center()
+        state = self.window_state_to_str()
 
-        status_text = (
+        text = (
             f"Time: {time.strftime('%Y-%m-%d %H:%M:%S')}\n"
-            f"Number of Screens: {QApplication.screens().__len__()}\n"
+            f"Number of Screens: {len(QApplication.screens())}\n"
             f"Current Screen: {screen.name()}\n"
-            f"Screen Resolution: {screen_geometry.width()}x{screen_geometry.height()}\n"
-            f"Window Position: {window_position.x()}, {window_position.y()}\n"
-            f"Window Size: {window_size.width()}x{window_size.height()}\n"
-            f"Minimum Window Size: {window_min_size.width()}x{window_min_size.height()}\n"
-            f"Window Center: {window_center.x()}, {window_center.y()}\n"
+            f"Screen Resolution: {geo.width()}x{geo.height()}\n"
+            f"Window Position: {pos.x()}, {pos.y()}\n"
+            f"Window Size: {size.width()}x{size.height()}\n"
+            f"Minimum Window Size: {min_size.width()}x{min_size.height()}\n"
+            f"Window Center: {center.x()}, {center.y()}\n"
             f"Window State: {state}\n"
         )
 
-        # Выводим в текстовое поле
-        self.plainTextEdit.setPlainText(status_text)
+        self.ui.plainTextEdit.setPlainText(text)
 
-    def windowStateToStr(self):
-        """ Возвращает строковое представление состояния окна """
+    def window_state_to_str(self):
         if self.isMinimized():
             return "Minimized"
-        elif self.isMaximized():
+        if self.isMaximized():
             return "Maximized"
-        elif self.isVisible():
+        if self.isVisible():
             return "Visible"
-        else:
-            return "Hidden"
+        return "Hidden"
 
+    # Data
     def get_window_data(self):
-        """ Получаем данные окна и выводим в консоль """
-        window_position = self.pos()
-        window_size = self.size()
-        print(f"Window Position: {window_position.x()}, {window_position.y()}")
-        print(f"Window Size: {window_size.width()}x{window_size.height()}")
+        pos = self.pos()
+        size = self.size()
+        print(f"Window Position: {pos.x()}, {pos.y()}")
+        print(f"Window Size: {size.width()}x{size.height()}")
 
+    # Events
     def moveEvent(self, event):
-        # Отслеживаем перемещение окна
-        old_pos = self.last_pos
         new_pos = self.pos()
-        print(f"Window moved from {old_pos.x()}, {old_pos.y()} to {new_pos.x()}, {new_pos.y()}")
+        print(
+            f"Window moved from {self.last_pos.x()}, {self.last_pos.y()} "
+            f"to {new_pos.x()}, {new_pos.y()}"
+        )
         self.last_pos = new_pos
         super().moveEvent(event)
 
     def resizeEvent(self, event):
-        # Отслеживаем изменение размера окна
-        old_size = self.last_size
         new_size = self.size()
-        print(f"Window resized from {old_size.width()}x{old_size.height()} to {new_size.width()}x{new_size.height()}")
+        print(
+            f"Window resized from {self.last_size.width()}x{self.last_size.height()} "
+            f"to {new_size.width()}x{new_size.height()}"
+        )
         self.last_size = new_size
         super().resizeEvent(event)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

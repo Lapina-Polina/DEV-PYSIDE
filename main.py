@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
 
 # Импорт классов окон для лабораторных работ
 from widgets.lab1.main_window_lab1 import MainWindowLab1  # Лабораторная работа 1

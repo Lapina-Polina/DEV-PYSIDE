@@ -1,9 +1,10 @@
 import sys
-from PyQt6.QtWidgets import (
-    QApplication, QWidget, QLabel, QSlider,
-    QVBoxLayout, QHBoxLayout, QFrame, QSizePolicy, QPushButton
+from PySide6.QtWidgets import (
+    QApplication, QWidget, QLabel, QSlider, QVBoxLayout,
+    QHBoxLayout, QFrame, QSizePolicy, QPushButton
 )
-from PyQt6.QtCore import Qt
+from PySide6.QtCore import Qt
+
 
 class EngineControlUI(QWidget):
     def __init__(self):

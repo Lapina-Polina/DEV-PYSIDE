@@ -1,4 +1,5 @@
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton
+
 from widgets.lab2.a_create_ui import Window
 from widgets.lab2.b_add_signals import AddWindow
 from widgets.lab2.c_signals_events import SignalWindow

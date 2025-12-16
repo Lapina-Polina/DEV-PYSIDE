@@ -1,10 +1,11 @@
-from PyQt6.QtWidgets import (
+import sys
+from PySide6.QtWidgets import (
     QApplication, QDialog, QLabel, QListWidget, QRadioButton,
     QVBoxLayout, QHBoxLayout, QPushButton, QButtonGroup
 )
-from PyQt6.QtGui import QFont, QColor
-from PyQt6.QtCore import Qt
-import sys
+from PySide6.QtGui import QFont
+from PySide6.QtCore import Qt
+
 
 class BookShopWindow(QDialog):
     def __init__(self):
