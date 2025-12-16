@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QApplication, QDialog, QMessageBox
-from .login_ui import Ui_Dialog
+from ui_generated.login_ui import Ui_Dialog
 
 class LoginWindow(QDialog):
     def __init__(self):

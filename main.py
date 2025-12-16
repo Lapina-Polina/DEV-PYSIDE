@@ -1,52 +1,49 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
+from PyQt6.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
 
-# Импорты всех окон
-from ui.login import LoginWindow
-from ui.b_login import BLoginWindow
-from main_window import MainWindow
-from ui.engine_settings import EngineControlUI
-from ui.profile_card import ProfileCardWindow
-from ui.book_shop import BookShopWindow
-from ui.calculator import CalculatorWindow
-from ui.ship_parameters import ShipParametersUI
+# Импорт классов окон для лабораторных работ
+from widgets.lab1.main_window_lab1 import MainWindowLab1  # Лабораторная работа 1
+from widgets.lab2.main_window_lab2 import MainWindowLab2  # Лабораторная работа 2
+
 
 class Launcher(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Выберите окно для запуска")
-        self.setGeometry(100, 100, 300, 400)
+        self.setWindowTitle("Выберите лабораторную работу")
 
+        # Уменьшаем размеры окна для компактности
+        self.setGeometry(100, 100, 250, 200)  # Размеры окна изменены для компактности
+
+        # Создаем вертикальный макет (QVBoxLayout)
         layout = QVBoxLayout()
 
-        # Кнопки для запуска каждого окна
+        # Кнопки для выбора лабораторной работы
         buttons = [
-            ("Логин", LoginWindow),
-            ("Логин (В)", BLoginWindow),
-            ("Основное окно", MainWindow),
-            ("Параметры корабля", ShipParametersUI),
-            ("Управление основными двигателями", EngineControlUI),
-            ("Профиль", ProfileCardWindow),
-            ("Книжный магазин", BookShopWindow),
-            ("Калькулятор", CalculatorWindow),
+            ("Лабораторная работа 1", MainWindowLab1),
+            ("Лабораторная работа 2", MainWindowLab2),
         ]
 
+        # Создаем кнопки для каждой лабораторной работы
         for text, window_class in buttons:
             btn = QPushButton(text)
-            btn.clicked.connect(lambda checked, wc=window_class: self.open_window(wc))
+            # При нажатии открываем соответствующее окно лабораторной работы
+            btn.clicked.connect(self.create_window_handler(window_class))
             layout.addWidget(btn)
 
         self.setLayout(layout)
 
-    def open_window(self, window_class):
-        # Открываем выбранное окно
-        window = window_class()
-        window.show()
-        # Чтобы окно не закрылось сразу, сохраняем ссылку
-        setattr(self, f"_open_{window_class.__name__}", window)
+    def create_window_handler(self, window_class):
+        """Возвращает обработчик для открытия окна лабораторной работы"""
+        def handler():
+            """Открывает выбранное окно лабораторной работы"""
+            window = window_class()
+            window.show()
+            setattr(self, f"_open_{window_class.__name__}", window)  # Сохраняем ссылку на окно
+        return handler
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    launcher = Launcher()
-    launcher.show()
-    sys.exit(app.exec())
+    launcher = Launcher()  # Создаем окно выбора лабораторной работы
+    launcher.show()  # Показываем окно
+    sys.exit(app.exec())  # Запуск приложения
