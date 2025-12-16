@@ -1,10 +1,11 @@
-from PyQt6.QtWidgets import (
+import sys
+
+from PySide6.QtWidgets import (
     QApplication, QDialog, QLabel, QLineEdit, QSlider,
     QPushButton, QVBoxLayout, QHBoxLayout
 )
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFont
-import sys
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QFont
 
 class CalculatorWindow(QDialog):
     def __init__(self):

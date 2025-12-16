@@ -1,9 +1,10 @@
-from PyQt6.QtWidgets import (
+from PySide6.QtWidgets import (
     QApplication, QDialog, QLabel, QLineEdit, QPushButton,
     QVBoxLayout, QHBoxLayout, QMessageBox, QSizePolicy
 )
 import sys
 import re
+
 
 class ProfileCardWindow(QDialog):
     def __init__(self):
