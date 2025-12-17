@@ -1,0 +1,5 @@
+Folder Scanner Report
+
+Total files: unknown
+Total size: calculated dynamically
+This report exists to add depth to folder structure.
